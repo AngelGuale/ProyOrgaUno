@@ -1,5 +1,5 @@
-kahskahsnka
-laksjlasjlakjlajlka
-laskjlakjslkajslkjalskjalka
-laskjlask lasnlkas lajsjlkas
-kanska lajskljasljalsjalska asasasas kjkjk
+Con el nombre de MIPS (siglas de Microprocessor without Interlocked Pipeline Stages) se conoce a toda una familia de microprocesadores de arquitectura RISC desarrollados por MIPS Technologies.
+
+Los diseños del MIPS son utilizados en la línea de productos informáticos de SGI; en muchos sistemas embebidos; en dispositivos para Windows CE; routers Cisco; y videoconsolas como la Nintendo 64 o las Sony PlayStation, PlayStation 2 y PlayStation Portable.
+
+Las primeras arquitecturas MIPS fueron implementadas en 32 bits (generalmente rutas de datos y registros de 32 bits de ancho), si bien versiones posteriores fueron implementadas en 64 bits. Existen cinco revisiones compatibles hacia atrás del conjunto de instrucciones del MIPS, llamadas MIPS I, MIPS II, MIPS III, MIPS IV y MIPS 32/64. En la última de ellas, la MIPS 32/64 Release 2, se define a mayores un conjunto de control de registros. Así mismo están disponibles varias "extensiones", tales como la MIPS-3D, consistente en un simple conjunto de instrucciones SIMD en coma flotante dedicadas a tareas 3D comunes, la MDMX(MaDMaX) compuesta por un conjunto más extenso de instrucciones SIMD enteras que utilizan los registros de coma flotante de 64 bits, la MIPS16 que añade compresión al flujo de instrucciones para hacer que los programas ocupen menos espacio (presuntamente como respuesta a la tecnología de compresión Thumb de la arquitectura ARM) o la reciente MIPS MT que añade funcionalidades multithreading similares a la tecnología HyperThreading de los procesadores Intel Pentium 4.
