@@ -47,12 +47,27 @@ lb $t5, 0($s2) #cargo el primer caracter
 
 li $t7, 32 #cargo el caracter de espacio
 bne $t5, $t7, enter
-addi $s7, $s7, 1
+	###########todo ok
+	addi $s7, $s7, 1 #suma uno al numero de palabras
+	slt $t4, $s5,$t1
+	beq $t4, $zero, prefinalloop
+	addi $s6, $s6, 1 #suma uno al numero de palabras
+	li $t1, 0
+	j finalloop
 enter:
 li $t8, 13 #cargo el caracter de retorno de carro
-bne $t5, $t8, final
-addi $s7, $s7, 1
-final:
+bne $t5, $t8, prefinalloop
+	########### todo ok
+	addi $s7, $s7, 1 #suma uno al numero de palabras
+	slt $t4, $s5,$t1
+	beq $t4, $zero, prefinalloop
+	addi $s6, $s6, 1 #suma uno al numero de palabras
+	li $t1, 0
+	j finalloop
+
+prefinalloop:
+addi $t1, $t1, 1 #sumo uno al tamanio de la palabra
+finalloop:
 addi $s2, $s2,1 #sumo uno al puntero
 lb $t6 0($s2) #cargo el caracter siguiente
 bne $t6, $zero, Loop #termina el loop 
@@ -61,8 +76,10 @@ li $v0,4
 la $a0,mensajeNroPalabra
 syscall
 
-move $a0, $s7 #muevo el numero de palabras para imprimir
+move $a0, $s6 #muevo el numero de palabras para imprimir
 li $v0, 1
 syscall
 
 exit: 
+li $v0, 10
+syscall
