@@ -3,6 +3,7 @@ mensajeNroPalabra: .asciiz "\n el numero de palabras es: "
 ingresaNombre: .asciiz "Ingrese el nombre del archivo: "
 nombreArchivo: .asciiz "prueba1.txt"
 sinEspacio: .asciiz "sinEspacio.txt"
+alReves: .asciiz "alReves.txt"
 
 buffer: .asciiz ""
 bufferSinEspacio: .asciiz ""
@@ -23,6 +24,7 @@ syscall
 
 move $s0, $v0           #hang onto the initial address of all our info
 move $t0, $s0
+addi $s0, $s0, 2048
 #abre el archivo, 13 es para abrir funcion OPEN
 ######abrir para leer archivo###############
 la $a0, nombreArchivo
@@ -45,7 +47,7 @@ syscall
 #syscall 
 
 la $s2, buffer #cargo la direccion del buffer
-
+li $t1, 0 #tamanio de buffer al reves
 Loop:
 lb $t5, 0($s2) #cargo el primer caracter
 
@@ -56,19 +58,20 @@ lb $t5, 0($s2) #cargo el primer caracter
 
 li $t7, 32 #cargo el caracter de espacio
 bne $t5, $t7, enter
-	###########todo ok es espacio
+	###########todo ok
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	j finalloop
 enter:
 li $t8, 13 #cargo el caracter de retorno de carro
 bne $t5, $t8, prefinalloop
-	########### todo ok es espacio
+	########### todo ok
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	j finalloop
 
 prefinalloop:
 sb $t5, 0($s0) #guardo cuando no es cero
-addi $s0, $s0, 1
+addi $s0, $s0, -1
+addi $t1, $t1, 1
 finalloop:
 addi $s2, $s2,1 #sumo uno al puntero
 lb $t6 0($s2) #cargo el caracter siguiente
@@ -78,17 +81,19 @@ li $v0,4
 la $a0,mensajeNroPalabra
 syscall
 
+addi $s0, $s0, 1 #le sumo uno porque en el loop queda uno atras
+
 move $a0, $s7 #muevo el numero de palabras para imprimir
 li $v0, 1
 syscall
 
 
 li $v0,4
-move $a0,$t0
+move $a0,$s0
 syscall
 
 ######abrir para escribir archivo###############
-la $a0, sinEspacio
+la $a0, alReves
 li $a1, 1 # 0 para leer 1 para escribir
 li $a2, 0
 li $v0, 13
@@ -97,17 +102,14 @@ syscall
 move $s1, $v0 #guarda la salida, o sea el file descriptor
 
 
-########## escribir sobre el archivo abierto #######
-  li   $v0, 15       # 15 es para escribir
+# Write to file just opened
+  li   $v0, 15       # system call for write to file
   move $a0, $s1      # file descriptor 
-  move   $a1, $t0   # address of buffer from which to write
-  li   $a2, 2048       # longitud del buffer
+  move   $a1, $s0   # address of buffer from which to write
+  move   $a2, $t1       # hardcoded buffer length
   syscall            # write to file
 
- ############ cerrar el archivo ############### 
-  li   $v0, 16       # system call for close file
-  move $a0, $s1      # file descriptor to close
-  syscall            # close file
+
 exit: 
 li $v0, 10
 syscall
