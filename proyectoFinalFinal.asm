@@ -278,13 +278,13 @@ addi $s2, $s2,1 #sumo uno al puntero
 lb $t6 0($s2) #cargo el caracter siguiente
 bne $t6, $zero, Loop1 #termina el loop 
 
-li $v0,4
-la $a0,mensajeNroPalabra
-syscall
+#li $v0,4
+#la $a0,mensajeNroPalabra
+#syscall
 
-move $a0, $s7 #muevo el numero de palabras para imprimir
-li $v0, 1
-syscall
+#move $a0, $s7 #muevo el numero de palabras para imprimir
+#li $v0, 1
+#syscall
 
    ##### con esto imprimo la salida
 #li $v0,4
@@ -314,6 +314,9 @@ move $s1, $v0 #guarda la salida, o sea el file descriptor
   syscall            # close file
 
 
+ la $a0, mensajeExito
+ li $v0, 4
+ syscall
 jr $ra
 
 ################# AL REVES #####################################
@@ -345,10 +348,6 @@ li $v0, 14 #la opcion de leer archivo
 syscall
 
 
-#li $v0, 4
-#la $a0, buffer
-#syscall 
-
 la $s2, buffer #cargo la direccion del buffer
 li $t1, 0 #tamanio de buffer al reves
 Loop2:
@@ -359,17 +358,17 @@ lb $t5, 0($s2) #cargo el primer caracter
 #li $v0, 11 # 11 para imprimir caracter
 #syscall
 
-li $t7, 32 #cargo el caracter de espacio
-bne $t5, $t7, enter2
+#li $t7, 32 #cargo el caracter de espacio
+#bne $t5, $t7, enter2
 	###########todo ok
-	addi $s7, $s7, 1 #suma uno al numero de palabras
-	j finalloop2
-enter2:
-li $t8, 13 #cargo el caracter de retorno de carro
-bne $t5, $t8, prefinalloop2
+#	addi $s7, $s7, 1 #suma uno al numero de palabras
+#	j finalloop2
+#enter2:
+#li $t8, 13 #cargo el caracter de retorno de carro
+#bne $t5, $t8, prefinalloop2
 	########### todo ok
-	addi $s7, $s7, 1 #suma uno al numero de palabras
-	j finalloop2
+#	addi $s7, $s7, 1 #suma uno al numero de palabras
+#	j finalloop2
 
 prefinalloop2:
 sb $t5, 0($s0) #guardo cuando no es cero
@@ -380,15 +379,15 @@ addi $s2, $s2,1 #sumo uno al puntero
 lb $t6 0($s2) #cargo el caracter siguiente
 bne $t6, $zero, Loop2 #termina el loop 
 
-li $v0,4
-la $a0,mensajeNroPalabra
-syscall
+#li $v0,4
+#la $a0,mensajeNroPalabra
+#syscall
 
 addi $s0, $s0, 1 #le sumo uno porque en el loop queda uno atras
 
-move $a0, $s7 #muevo el numero de palabras para imprimir
-li $v0, 1
-syscall
+#move $a0, $s7 #muevo el numero de palabras para imprimir
+#li $v0, 1
+#syscall
 
 #para imprimir el resultado
 #li $v0,4
