@@ -200,9 +200,10 @@ bne $t5, $t7, enter3
 	###########todo ok
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	slt $t4, $s5,$t1
+	li $t1, 0
 	beq $t4, $zero, prefinalloop3
 	addi $s6, $s6, 1 #suma uno al numero de palabras
-	li $t1, 0
+	
 	j finalloop3
 enter3:
 li $t8, 13 #cargo el caracter de retorno de carro
@@ -210,9 +211,10 @@ bne $t5, $t8, prefinalloop3
 	########### todo ok
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	slt $t4, $s5,$t1
+	li $t1, 0
 	beq $t4, $zero, prefinalloop3
 	addi $s6, $s6, 1 #suma uno al numero de palabras
-	li $t1, 0
+	
 	j finalloop3
 
 prefinalloop3:

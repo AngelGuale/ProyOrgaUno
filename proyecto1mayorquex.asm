@@ -36,10 +36,18 @@ syscall
 
 la $s2, buffer #cargo la direccion del buffer
 li $t1, 0 #t1 guardara el tamanio de la palabra
-li $s5, 50 #tamanio de palabra
+li $s5, 20 #tamanio de palabra
+
+move $a0, $s5
+li $v0, 1
+syscall
+
 Loop:
 lb $t5, 0($s2) #cargo el primer caracter
 
+#li $a0, 0
+#li $v0, 1
+#syscall 
 #para imprimir caracter
 #move $a0, $t5 #movemos el caracter a imprimir
 #li $v0, 11 # 11 para imprimir caracter
@@ -48,21 +56,43 @@ lb $t5, 0($s2) #cargo el primer caracter
 li $t7, 32 #cargo el caracter de espacio
 bne $t5, $t7, enter
 	###########todo ok
+	######mensaje debug 1 espacio 
+	li $a0, 1
+	li $v0, 1
+	syscall 
+	#######
+	
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	slt $t4, $s5,$t1
-	beq $t4, $zero, prefinalloop
-	addi $s6, $s6, 1 #suma uno al numero de palabras
 	li $t1, 0
+	beq $t4, $zero, prefinalloop
+	
+	li $a0, 0
+	li $v0, 1
+	syscall 
+	
+	addi $s6, $s6, 1 #suma uno al numero de palabras
 	j finalloop
 enter:
 li $t8, 13 #cargo el caracter de retorno de carro
 bne $t5, $t8, prefinalloop
 	########### todo ok
+	######mensaje debug 1 espacio 
+	li $a0, 1
+	li $v0, 1
+	syscall 
+	#######
+	
+	
 	addi $s7, $s7, 1 #suma uno al numero de palabras
 	slt $t4, $s5,$t1
-	beq $t4, $zero, prefinalloop
-	addi $s6, $s6, 1 #suma uno al numero de palabras
 	li $t1, 0
+	beq $t4, $zero, prefinalloop
+	
+	li $a0, 0
+	li $v0, 1
+	syscall 
+	addi $s6, $s6, 1 #suma uno al numero de palabras
 	j finalloop
 
 prefinalloop:
