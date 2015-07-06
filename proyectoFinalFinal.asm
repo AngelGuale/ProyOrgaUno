@@ -7,6 +7,8 @@ ingresaNombre: .asciiz "Ingrese el nombre del archivo: "
 mensajeExito: .asciiz "El archivo se ha creado exitosamente.."
 presCualqMsj: .asciiz "\nOprima enter para continuar.."
 
+tamanioMinimo: .asciiz "\n Ingrese tamaño minimo de palabra: "
+
 nombreArchivo: .space 100
 list: .word 0:3
 mensaje: .asciiz "No se encuentra el archivo. Pruebe de nuevo...\n"
@@ -150,7 +152,15 @@ jr $ra
 ###################### OPCION 2 #############################
 ####################### CONTAR PALABRAS MAYOR QUE ################################
 contarPalabrasMayor:
-li $s5, 5 #tamanio de palabra
+la $a0, tamanioMinimo
+li $v0, 4
+syscall
+
+li $v0, 5
+syscall
+move $s5, $v0
+
+#li $s5, 5 #tamanio de palabra
 li $s7, 0 #s7 es el numero de palabras
 li $s6, 0 #s6 es el numero de palabras mayor que s5
 #abre el archivo, 13 es para abrir funcion OPEN

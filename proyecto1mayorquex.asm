@@ -10,7 +10,7 @@ buffer: .asciiz ""
 #li $v0, 4
 #syscall
 
-li $s5, 5 #tamanio de palabra
+
 li $s7, 0 #s7 es el numero de palabras
 li $s6, 0 #s6 es el numero de palabras mayor que s5
 #abre el archivo, 13 es para abrir funcion OPEN
@@ -36,7 +36,7 @@ syscall
 
 la $s2, buffer #cargo la direccion del buffer
 li $t1, 0 #t1 guardara el tamanio de la palabra
-
+li $s5, 50 #tamanio de palabra
 Loop:
 lb $t5, 0($s2) #cargo el primer caracter
 
